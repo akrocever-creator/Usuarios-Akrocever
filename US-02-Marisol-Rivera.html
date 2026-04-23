@@ -123,17 +123,16 @@ body {
       gap: 12px;
       font-size: 15px;
       font-weight: 700;
-      position: relative;           /* ← necesario para ::before */
-      overflow: hidden;             /* ← necesario para que no se salga el brillo */
+      position: relative;           
+      overflow: hidden;             
     }
 
-    /* ¡Aquí está el brillo en las cabeceras de las tarjetas! */
     .card-header::before {
       content: '';
       position: absolute;
       inset: -50% -120% -50% -120%;
       background: linear-gradient(90deg, transparent 20%, rgba(255,255,255,0.50) 45%, rgba(255,255,255,0.30) 50%, transparent 80%);
-      animation: shineHorizontal 5.5s linear infinite;   /* un poco más rápido que el header */
+      animation: shineHorizontal 5.5s linear infinite;   
       pointer-events: none;
       transform: skewX(-15deg);
     }
@@ -148,7 +147,7 @@ body {
       justify-content: center;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       position: relative;
-      z-index: 1;   /* para que el icono quede encima del brillo */
+      z-index: 1;   
     }
 
     .icon-text { color: #3e8fb8; font-size: 22px; font-weight: 800; }
@@ -175,7 +174,6 @@ body {
       color: #64748b;
     }
 
-    /* ── Tarjeta de inversión (sin cambios) ── */
     :root {
       --color-borde: #3F93C0;
       --color-header: #3F93C0;
@@ -188,12 +186,12 @@ body {
   margin: 0 auto 40px;
   padding: 14px;
   background: white;
-  border-radius: 10px;                    /* lo cambié a 10px para que coincida mejor con las otras tarjetas */
+  border-radius: 10px;                    
   box-shadow: 
-    0 0 0 4px #3e8fb8,                    /* borde azul sólido */
-    0 0 10px 4px rgba(62, 143, 184, 0.4), /* glow medio */
-    0 0 24px 8px rgba(62, 143, 184, 0.25),/* glow exterior */
-    0 8px 16px rgba(0,0,0,0.08);          /* sombra natural hacia abajo */
+    0 0 0 4px #3e8fb8,                    
+    0 0 10px 4px rgba(62, 143, 184, 0.4), 
+    0 0 24px 8px rgba(62, 143, 184, 0.25),
+    0 8px 16px rgba(0,0,0,0.08);          
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -206,7 +204,6 @@ body {
     0 12px 24px rgba(0,0,0,0.12);
 }
 
-/* ── Nueva sección: Capital en movimiento ── */
 .card-container {
   font-family: 'Orbitron', sans-serif;
   padding: 16px;
@@ -253,9 +250,8 @@ body {
   color: #555;
 }
 
-/* ── Nueva sección: Planes completadas ── */
 .completed-section {
-  margin-top: 48px; /* espacio arriba respecto a la sección anterior */
+  margin-top: 48px; 
   text-align: center;
 }
 
@@ -308,7 +304,7 @@ body {
     rgba(255, 255, 255, 0.25) 50%,
     transparent 80%
   );
-  animation: shineHorizontal 5.5s linear infinite;   /* ajusta el tiempo si quieres más rápido/lento */
+  animation: shineHorizontal 5.5s linear infinite;   
   pointer-events: none;
   transform: skewX(-15deg);
 }
@@ -350,11 +346,11 @@ body {
 }
 
 .completed-card {
-  margin-bottom: 45px;   /* separación entre tarjetas */
+  margin-bottom: 45px;   
 }
 
 .completed-card:last-child {
-  margin-bottom: 0;      /* quita margen extra en la última */
+  margin-bottom: 0;      
 }
 
 @keyframes shineHorizontal {
@@ -374,7 +370,6 @@ body {
       overflow: hidden;
     }
 
-    /* Opcional: también puedes poner brillo aquí si quieres consistencia */
     .investment-header::before {
       content: '';
       position: absolute;
@@ -418,6 +413,28 @@ body {
     @keyframes fadeUp {
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* ============================= */
+    /* ✅ FIX PARA QUE NO SE CORRA */
+    /* ============================= */
+    html, body {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    .container {
+      width: 100%;
+    }
+
+    .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .completed-table {
+      min-width: 700px;
+    }
   </style>
 </head>
 <body>
@@ -434,7 +451,6 @@ body {
   <h2 class="section-title">CONTROL DE GANANCIAS</h2>
 
   <div class="dashboard">
-    <!-- Las 4 tarjetas ahora tendrán el efecto de brillo en la parte azul -->
     <div class="card">
       <div class="card-header">
         <div class="icon"><span class="icon-text">$</span></div>
@@ -490,7 +506,6 @@ body {
   <h2 class="section-title">MIS INVERSIONES</h2>
 
   <div class="investment-card">
-    <!-- ... el resto del contenido de la tarjeta de inversión sigue igual ... -->
     <div class="investment-header" id="planTitulo"></div>
     <div class="row">
       <div>
@@ -522,12 +537,9 @@ body {
     </div>
   </div>
 
-<!-- Nueva sección: CONTROL DE CAPITAL-->
   <h2 class="section-title">CONTROL DE CAPITAL</h2>
 
   <div class="card-container">
-
-    <!-- Capital actual -->
     <div class="section">
       <div class="title">Capital actual en movimiento:</div>
       <div>
@@ -536,7 +548,6 @@ body {
       </div>
     </div>
 
-    <!-- Total invertido -->
     <div class="section">
       <div class="title">Total invertido en efectivo:</div>
       <div>
@@ -544,25 +555,20 @@ body {
         <span class="currency">USD</span>
       </div>
     </div>
-
   </div>
 
 </div>
 
 <script>
-// ── SOLO CAMBIA LAS VARIABLES DE ESTA SECCIÓN ──
-
-const planNombre       = "PLAN";      // ← Cambia el título aquí
-const montoActual      = 0.00;                  // ← Monto actual (esto mueve la barra)
-const montoMaximo      = 750.00;                  // ← Monto total esperado
-const utilidadPorc     = "50%";                   // ← % de utilidad
-const rentabilidadDiaria = "$1.25 USD";          // ← Rentabilidad diaria
-const periodo          = "30 días";               // ← Duración
-const ganancia         = "$12.50 USD";           // ← Ganancia total
-const totalRecibir     = "$37.50 USD";           // ← Total a recibir al final
-const fechaInicio      = "••/••/2026";            // ← Fecha de inicio
-
-// ── NO CAMBIES NADA DE AQUÍ PARA ABAJO ──
+const planNombre       = "PLAN";
+const montoActual      = 0.00;
+const montoMaximo      = 750.00;
+const utilidadPorc     = "50%";
+const rentabilidadDiaria = "$1.25 USD";
+const periodo          = "30 días";
+const ganancia         = "$12.50 USD";
+const totalRecibir     = "$37.50 USD";
+const fechaInicio      = "••/••/2026";
 
 document.getElementById("planTitulo").textContent = planNombre;
 document.getElementById("estado").textContent = "Activar";
@@ -574,7 +580,6 @@ document.getElementById("periodo").textContent = periodo;
 document.getElementById("ganancia").textContent = ganancia;
 document.getElementById("total").textContent = totalRecibir;
 
-// Cálculo y actualización automática de la barra
 let progreso = montoActual / montoMaximo;
 progreso = Math.min(Math.max(progreso, 0), 1);
 const porcentaje = progreso * 100;
@@ -584,175 +589,180 @@ document.getElementById("barBlue").style.width = (100 - porcentaje) + "%";
 document.getElementById("progressDot").style.left = porcentaje + "%";
 </script>
 
-<!-- Sección con las 3 tarjetas similares -->
-
 <div class="completed-section">
-  <h2 class="section-title">RESUMEN DE OPERACIONES</h2>   <!-- Título general opcional para las 3 -->
+  <h2 class="section-title">RESUMEN DE OPERACIONES</h2>
 
-  <!-- Tarjeta 1: INVERSIONES -->
   <div class="completed-card" style="margin-bottom: 48px;">
     <div class="completed-header">INVERSIONES</div>
-    <table class="completed-table">
-      <thead>
-        <tr>
-          <th>Plan</th>
-          <th>Tipo</th>
-          <th>Ganancia generada</th>
-          <th>Fecha</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="lexend-text">$50.00 USD</span></td>
-          <td><span class="lexend-text">Deposito</span></td>
-          <td><span class="lexend-text">$75.00 USD</span></td>
-          <td><span class="lexend-text">08/02/2026</span></td>
-        </tr>
-        <tr>
-          <td><span class="lexend-text">$25.00 USD</span></td>
-          <td><span class="lexend-text">Reinversión</span></td>
-          <td><span class="lexend-text">$37.50 USD</span></td>
-          <td><span class="lexend-text">17/01/2026</span></td>
-        </tr>
-        <tr>
-          <td><span class="lexend-text">$50.00 USD</span></td>
-          <td><span class="lexend-text">Deposito</span></td>
-          <td><span class="lexend-text">$75.00 USD</span></td>
-          <td><span class="lexend-text">03/01/2026</span></td>
-        </tr>
-        <tr>
-          <td><span class="lexend-text">$50.00 USD</span></td>
-          <td><span class="lexend-text">Deposito</span></td>
-          <td><span class="lexend-text">$75.00 USD</span></td>
-          <td><span class="lexend-text">10/12/2025</span></td>
-        </tr>
 
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table class="completed-table">
+        <thead>
+          <tr>
+            <th>Plan</th>
+            <th>Tipo</th>
+            <th>Ganancia generada</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="lexend-text">$50.00 USD</span></td>
+            <td><span class="lexend-text">Deposito</span></td>
+            <td><span class="lexend-text">$75.00 USD</span></td>
+            <td><span class="lexend-text">08/02/2026</span></td>
+          </tr>
+          <tr>
+            <td><span class="lexend-text">$25.00 USD</span></td>
+            <td><span class="lexend-text">Reinversión</span></td>
+            <td><span class="lexend-text">$37.50 USD</span></td>
+            <td><span class="lexend-text">17/01/2026</span></td>
+          </tr>
+          <tr>
+            <td><span class="lexend-text">$50.00 USD</span></td>
+            <td><span class="lexend-text">Deposito</span></td>
+            <td><span class="lexend-text">$75.00 USD</span></td>
+            <td><span class="lexend-text">03/01/2026</span></td>
+          </tr>
+          <tr>
+            <td><span class="lexend-text">$50.00 USD</span></td>
+            <td><span class="lexend-text">Deposito</span></td>
+            <td><span class="lexend-text">$75.00 USD</span></td>
+            <td><span class="lexend-text">10/12/2025</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 
-  <!-- Tarjeta 1: REFERIDOS -->
   <div class="completed-card" style="margin-bottom: 48px;">
     <div class="completed-header">REFERIDOS</div>
-    <table class="completed-table">
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Usuario</th>
-          <th>Fecha de registro</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="lexend-text">José Rivera</span></td>
-          <td><span class="lexend-text">José</span></td>
-          <td><span class="lexend-text">07/01/2026</span></td>
-        </tr>
-        <tr>
-          <td><span class="lexend-text">María Castellano</span></td>
-          <td><span class="lexend-text">MARIKAST8</span></td>
-          <td><span class="lexend-text">07/01/2026</span></td>
-        </tr>
-        <tr>
-          <td><span class="lexend-text">Yuli Adonys</span></td>
-          <td><span class="lexend-text">Yuly</span></td>
-          <td><span class="lexend-text">18/12/2025</span></td>
-        </tr>
-        <tr>
 
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table class="completed-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Usuario</th>
+            <th>Fecha de registro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="lexend-text">José Rivera</span></td>
+            <td><span class="lexend-text">José</span></td>
+            <td><span class="lexend-text">07/01/2026</span></td>
+          </tr>
+          <tr>
+            <td><span class="lexend-text">María Castellano</span></td>
+            <td><span class="lexend-text">MARIKAST8</span></td>
+            <td><span class="lexend-text">07/01/2026</span></td>
+          </tr>
+          <tr>
+            <td><span class="lexend-text">Yuli Adonys</span></td>
+            <td><span class="lexend-text">Yuly</span></td>
+            <td><span class="lexend-text">18/12/2025</span></td>
+          </tr>
+          <tr></tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 
-  <!-- Tarjeta 1: INVERSIONES -->
   <div class="completed-card" style="margin-bottom: 48px;">
     <div class="completed-header">GANANCIAS POR REFERIDOS</div>
-    <table class="completed-table">
-      <thead>
-        <tr>
-          <th>Residual</th>
-          <th>Por usuario</th>
-          <th>Recibido</th>
-          <th>Fecha</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td><span class="lexend-text">10.00 USD</span></td>
-          <td><span class="lexend-text">José</span></td>
-          <td><span class="lexend-text">Pendiente</span></td>
-          <td><span class="lexend-text">08/02/2026</span></td>
-        </tr>
-          <td><span class="lexend-text">25.00 USD</span></td>
-          <td><span class="lexend-text">MARIKAST8</span></td>
-          <td><span class="lexend-text">Pendiente</span></td>
-          <td><span class="lexend-text">08/02/2026</span></td>
-        </tr>
-          <td><span class="lexend-text">5.00 USD</span></td>
-          <td><span class="lexend-text">Yuly</span></td>
-          <td><span class="lexend-text">Pendiente</span></td>
-          <td><span class="lexend-text">10/01/2026</span></td>
-        </tr>
-      </tbody>
-    </table>
+
+    <div class="table-wrapper">
+      <table class="completed-table">
+        <thead>
+          <tr>
+            <th>Residual</th>
+            <th>Por usuario</th>
+            <th>Recibido</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="lexend-text">10.00 USD</span></td>
+            <td><span class="lexend-text">José</span></td>
+            <td><span class="lexend-text">Pendiente</span></td>
+            <td><span class="lexend-text">08/02/2026</span></td>
+          </tr>
+          <tr>
+            <td><span class="lexend-text">25.00 USD</span></td>
+            <td><span class="lexend-text">MARIKAST8</span></td>
+            <td><span class="lexend-text">Pendiente</span></td>
+            <td><span class="lexend-text">08/02/2026</span></td>
+          </tr>
+          <tr>
+            <td><span class="lexend-text">5.00 USD</span></td>
+            <td><span class="lexend-text">Yuly</span></td>
+            <td><span class="lexend-text">Pendiente</span></td>
+            <td><span class="lexend-text">10/01/2026</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 
-  <!-- Tarjeta 2: PAGOS EN EFECTIVO -->
   <div class="completed-card" style="margin-bottom: 48px;">
     <div class="completed-header">PAGOS EN EFECTIVO</div>
-    <table class="completed-table">
-      <thead>
-        <tr>
-          <th>Tipo</th>
-          <th>Recibido</th>
-          <th>Fecha</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Aquí puedes poner datos diferentes si quieres -->
-        <tr>
-          <td><span class="lexend-text">•••</span></td>
-          <td><span class="lexend-text">$0.00 MXN</span></td>
-          <td><span class="lexend-text">••/03/2026</span></td>
-        </tr>
 
-        <!-- Agrega más filas según necesites -->
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table class="completed-table">
+        <thead>
+          <tr>
+            <th>Tipo</th>
+            <th>Recibido</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="lexend-text">•••</span></td>
+            <td><span class="lexend-text">$0.00 MXN</span></td>
+            <td><span class="lexend-text">••/03/2026</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 
-  <!-- Tarjeta 3: DEPÓSITOS -->
   <div class="completed-card">
     <div class="completed-header">DEPÓSITOS</div>
-    <table class="completed-table">
-      <thead>
-        <tr>
-          <th>tipo</th>
-          <th>Cantidad</th>
-          <th>Fecha</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Datos de ejemplo, cámbialos por los reales -->
-        <tr>
-          <td><span class="lexend-text">Plan</span></td>
-          <td><span class="lexend-text">$50.00 USD</span></td>
-          <td><span class="lexend-text">03/01/2026</span></td>
-        </tr>
-        <tr>
-          <td><span class="lexend-text">Plan</span></td>
-          <td><span class="lexend-text">$50.00 USD</span></td>
-          <td><span class="lexend-text">10/12/2025</span></td>
-        </tr>
 
-        <!-- Más filas si las necesitas -->
-      </tbody>
-    </table>
+    <div class="table-wrapper">
+      <table class="completed-table">
+        <thead>
+          <tr>
+            <th>tipo</th>
+            <th>Cantidad</th>
+            <th>Fecha</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="lexend-text">Plan</span></td>
+            <td><span class="lexend-text">$50.00 USD</span></td>
+            <td><span class="lexend-text">03/01/2026</span></td>
+          </tr>
+          <tr>
+            <td><span class="lexend-text">Plan</span></td>
+            <td><span class="lexend-text">$50.00 USD</span></td>
+            <td><span class="lexend-text">10/12/2025</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
   </div>
 </div>
 
-<!-- Footer final -->
 <footer style="
   background: #3f8fb8;
   color: white;
@@ -773,7 +783,6 @@ document.getElementById("progressDot").style.left = porcentaje + "%";
     </p>
   </div>
 
-  <!-- Opcional: pequeño brillo como en los headers -->
   <div style="
     position: absolute;
     inset: 0;
@@ -784,4 +793,4 @@ document.getElementById("progressDot").style.left = porcentaje + "%";
 </footer>
 
 </body>
-</html>
+  </html>
