@@ -89,11 +89,24 @@
       text-transform: uppercase;
     }
 
-    /* ── Dashboard (Saldo Ajustado) ── */
+    /* ── Dashboard (Modificado para verse lado a lado en PC) ── */
     .dashboard {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
+      gap: 24px;
+      align-items: center;
       margin-bottom: 40px;
+    }
+
+    @media (min-width: 768px) {
+      .dashboard {
+        flex-direction: row;
+        justify-content: center;
+        align-items: stretch;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+      }
     }
 
     .card {
@@ -110,6 +123,13 @@
       animation: fadeUp 1s ease-out forwards;
       opacity: 0;
       transform: translateY(20px);
+    }
+
+    @media (min-width: 768px) {
+      .card {
+        max-width: none;
+        flex: 1;
+      }
     }
 
     .card-header {
@@ -175,6 +195,11 @@
     .goals-section {
       margin-top: 48px; 
       text-align: center;
+    }
+
+    /* Reduce el espacio si la sección va justo después de un título */
+    .section-title + .goals-section {
+      margin-top: 0px;
     }
 
     .goals-card {
@@ -330,6 +355,11 @@
       text-align: center;
     }
 
+    /* Reduce el espacio si la sección va justo después de un título */
+    .section-title + .completed-section {
+      margin-top: 0px;
+    }
+
     .completed-card {
       border-radius: 8px;
       overflow: hidden;
@@ -410,8 +440,8 @@
 <div class="container">
 
   <div class="main-header">
-    <h1>AHORRO</h1>
-    <p>Monitorea el crecimiento de tus ahorros aquí</p>
+    <h1>NEGOCIOS</h1>
+    <p>Monitorea el crecimiento de tus ingresos aquí</p>
   </div>
 
   <h2 class="section-title">CONTROL FINANCIERO</h2>
@@ -427,11 +457,24 @@
         <div class="desc">De $200.00 MXN</div>
       </div>
     </div>
+
+    <div class="card">
+      <div class="card-header">
+        <div class="icon"><span class="icon-text">👥</span></div>
+        GANANCIAS POR REFERIDOS
+      </div>
+      <div class="card-body">
+        <div class="amount">$0.00<span class="currency">MXN</span></div>
+        <div class="desc">Ingresos residuales recibidos</div>
+      </div>
+    </div>
   </div>
+
+  <h2 class="section-title">NEGOCIOS</h2>
 
   <div class="goals-section">
     <div class="goals-card">
-      <div class="goals-header">Maximizar mis ahorros</div>
+      <div class="goals-header">VEOTV</div>
       
       <div class="steps-container">
         
@@ -476,7 +519,7 @@
   
   <div class="goals-section">
     <div class="goals-card">
-      <div class="goals-header">Maximizar mis ahorros</div>
+      <div class="goals-header">TARJETA DIGITAL PAYREWARDS</div>
       
       <div class="steps-container">
         
@@ -519,6 +562,8 @@
     </div>
   </div>
 
+  <h2 class="section-title">RESUMEN DE OPERACIONES</h2>
+
   <div class="completed-section">
     <div class="completed-card">
       <div class="completed-header">MIS REFERIDOS</div>
@@ -546,7 +591,7 @@
   
   <div class="completed-section">
     <div class="completed-card">
-      <div class="completed-header">RESUMEN DE DEPÓSITOS</div>
+      <div class="completed-header">DEPÓSITOS</div>
 
       <div class="table-wrapper">
         <table class="completed-table">
@@ -609,23 +654,17 @@
 </footer>
 
 <script>
-  // Esta función te permite cambiar el color de cualquier paso dinámicamente con JavaScript
   function cambiarColorPaso(idDelPaso, claseColor) {
     const paso = document.getElementById(idDelPaso);
     if (paso) {
-      // Limpiamos clases de color anteriores por si acaso
       paso.classList.remove('paso-verde', 'paso-azul', 'paso-naranja');
-      // Aplicamos la nueva clase de color si se define una
       if(claseColor) {
         paso.classList.add(claseColor);
       }
     }
   }
-
-  // Ejemplo de uso desde JavaScript:
-  // cambiarColorPaso('t1-p1', 'paso-verde'); // Volvería verde el paso 1 de la tarjeta 1
-  // cambiarColorPaso('t1-p2', 'paso-azul');  // Volvería azul el paso 2 de la tarjeta 1
 </script>
 
 </body>
 </html>
+
